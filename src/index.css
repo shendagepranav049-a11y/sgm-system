@@ -988,163 +988,156 @@ button {
 }
 
 /* ==========================================================================
-   SGM ACADEMY & COLLEGE MODERN DUAL-PANEL SHOWCASE LOGIN STYLES
+   SGM ACADEMY & COLLEGE FULLSCREEN IMMERSIVE CAMPUS & FLOATING LOGIN CARD
    ========================================================================== */
 
-.sgm-login-wrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 10% 20%, #0f172a 0%, #1e1b4b 60%, #020617 100%);
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Background animated gradient orb */
-.sgm-login-wrapper::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
-  top: -100px;
-  left: -100px;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-.sgm-login-wrapper::after {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
-  bottom: -100px;
-  right: -100px;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-.sgm-login-card-container {
-  width: 100%;
-  max-width: 1140px;
-  min-height: 660px;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 28px;
-  box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-/* Left Showcase Panel */
-.sgm-showcase-panel {
-  position: relative;
+.sgm-fullscreen-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.25rem;
-  overflow: hidden;
-  background: #020617;
+  align-items: center;
+  z-index: 100;
+  padding: 1.25rem 1.5rem;
 }
 
-.sgm-showcase-bg-img {
+/* Fullscreen Background Images Layer */
+.sgm-fullscreen-bg-layer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sgm-fullscreen-bg-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 8s ease-out;
   opacity: 0;
   transform: scale(1);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 12s ease-out;
 }
 
-.sgm-showcase-bg-img.active {
+.sgm-fullscreen-bg-img.active {
   opacity: 1;
   transform: scale(1.08);
 }
 
-.sgm-showcase-overlay {
-  position: absolute;
+/* Cinematic Dark Radial Vignette Overlay */
+.sgm-fullscreen-overlay {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, rgba(2, 6, 23, 0.55) 0%, rgba(2, 6, 23, 0.35) 40%, rgba(2, 6, 23, 0.88) 100%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.72) 60%, rgba(2, 6, 23, 0.9) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 
-.sgm-showcase-header {
+/* Top Floating Bar: Logo, Google-style Tabs, Status */
+.sgm-top-floating-bar {
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  width: 100%;
+  max-width: 1240px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  padding: 0.5rem 0;
 }
 
-.sgm-showcase-badge {
-  display: inline-flex;
+.sgm-brand-badge-top {
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.45rem 0.95rem;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.45rem 1rem 0.45rem 0.6rem;
   border-radius: 9999px;
   color: #ffffff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Google-Style Animated Tabs */
+.sgm-brand-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.sgm-brand-badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sgm-brand-badge-name {
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.sgm-brand-badge-sub {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+
+/* Google-Style Animated Tab Bar */
 .google-tabs-bar {
   display: flex;
   align-items: center;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  padding: 4px;
+  backdrop-filter: blur(20px);
+  padding: 5px;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  gap: 4px;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(79, 70, 229, 0.2);
 }
 
 .google-tab-item {
   position: relative;
-  padding: 0.5rem 1.1rem;
+  padding: 0.55rem 1.25rem;
   border-radius: 9999px;
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
 .google-tab-item:hover {
   color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .google-tab-item.active {
   background: #ffffff;
   color: #0f172a;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   font-weight: 700;
 }
 
@@ -1152,77 +1145,43 @@ button {
   color: #4f46e5;
 }
 
-/* Bottom Showcase Content */
-.sgm-showcase-bottom {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.sgm-showcase-title-box {
+.sgm-top-accreditation {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
   color: #ffffff;
-}
-
-.sgm-showcase-title {
-  font-family: var(--font-heading);
-  font-size: 1.65rem;
-  font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin-bottom: 0.35rem;
-}
-
-.sgm-showcase-desc {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-}
-
-.sgm-showcase-stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.85rem 1rem;
-  border-radius: 16px;
-}
-
-.sgm-stat-item {
-  text-align: center;
-}
-
-.sgm-stat-val {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #ffffff;
-}
-
-.sgm-stat-lbl {
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.03em;
-  margin-top: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Right Login Form Panel */
-.sgm-login-form-panel {
-  background: #ffffff;
-  padding: 2.75rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* Floating Center Glassmorphic Login Card */
+.sgm-floating-login-card {
   position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 26px;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.3);
+  padding: 2.25rem 2.25rem;
+  margin: 1.5rem auto;
+  animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sgm-login-brand-header {
-  margin-bottom: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
 }
 
 .sgm-login-brand-pill {
@@ -1231,25 +1190,25 @@ button {
   gap: 0.5rem;
   background: #eef2ff;
   color: #4f46e5;
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
 }
 
 .sgm-login-heading {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.03em;
 }
 
 .sgm-login-subheading {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: #64748b;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 /* Login Mode Google Tab Switcher */
@@ -1258,7 +1217,7 @@ button {
   background: #f1f5f9;
   padding: 4px;
   border-radius: 12px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   gap: 4px;
 }
 
@@ -1290,6 +1249,25 @@ button {
   color: #4f46e5;
 }
 
+/* Auto-fill Chip */
+.autofill-credential-chip {
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: 12px;
+  padding: 0.7rem 0.95rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.autofill-credential-chip:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
 /* Google SSO Button */
 .btn-google-sso {
   width: 100%;
@@ -1315,48 +1293,81 @@ button {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Auto-fill Chip */
-.autofill-credential-chip {
-  background: #f0fdf4;
-  border: 1px dashed #86efac;
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.25rem;
+/* Bottom Floating Bar: Current View Info & Metrics */
+.sgm-bottom-floating-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1240px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  color: #ffffff;
 }
 
-.autofill-credential-chip:hover {
-  background: #dcfce7;
-  border-color: #4ade80;
+.sgm-bottom-view-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .sgm-login-card-container {
-    grid-template-columns: 1fr;
-    max-width: 540px;
-    border-radius: 22px;
+.sgm-bottom-stats-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sgm-bottom-stat-chip {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.sgm-bottom-stat-chip strong {
+  color: #ffffff;
+  margin-right: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .sgm-top-floating-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
   }
 
-  .sgm-showcase-panel {
-    min-height: 300px;
-    padding: 1.5rem;
-  }
-
-  .sgm-showcase-title {
-    font-size: 1.35rem;
-  }
-
-  .sgm-showcase-stats-row {
+  .sgm-top-accreditation {
     display: none;
   }
 
-  .sgm-login-form-panel {
-    padding: 2rem 1.5rem;
+  .sgm-bottom-floating-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.65rem;
+  }
+
+  .sgm-bottom-stats-pills {
+    justify-content: center;
+  }
+
+  .sgm-floating-login-card {
+    padding: 1.75rem 1.5rem;
+    margin: 1rem auto;
   }
 }
+
 
