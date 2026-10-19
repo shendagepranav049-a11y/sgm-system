@@ -4,8 +4,8 @@ import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
   const { login, isFirebaseLive } = useAuth();
-  const [email, setEmail] = useState("admin@sgmacademy.edu");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +26,7 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      await login("admin@sgmacademy.edu", "demo1234");
+      await login("admin@sgmacademy.edu", "admin123");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -110,6 +110,47 @@ export default function LoginPage() {
               <span>{error}</span>
             </div>
           )}
+
+          {/* Admin Credentials Helper Badge */}
+          <div
+            onClick={() => {
+              setEmail("admin@sgmacademy.edu");
+              setPassword("admin123");
+            }}
+            style={{
+              background: "#f0fdf4",
+              border: "1px dashed #86efac",
+              borderRadius: "10px",
+              padding: "0.75rem 1rem",
+              marginBottom: "1.25rem",
+              fontSize: "0.82rem",
+              color: "#166534",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}
+            title="Click to auto-fill admin credentials"
+          >
+            <div>
+              <div style={{ fontWeight: "700" }}>🔑 Administrator Login</div>
+              <div style={{ fontSize: "0.78rem", opacity: 0.85, marginTop: "2px" }}>
+                admin@sgmacademy.edu / admin123
+              </div>
+            </div>
+            <span
+              style={{
+                fontSize: "0.75rem",
+                background: "#dcfce7",
+                color: "#15803d",
+                padding: "3px 8px",
+                borderRadius: "6px",
+                fontWeight: "600"
+              }}
+            >
+              Auto-fill
+            </span>
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">

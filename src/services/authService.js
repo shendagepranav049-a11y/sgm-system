@@ -51,7 +51,7 @@ export const authService = {
             displayName: "Principal Administrator",
             isFallback: true
           };
-          localStorage.setItem("sgm_auth_user", JSON.stringify(user));
+          sessionStorage.setItem("sgm_auth_user", JSON.stringify(user));
           return { user, isDemo: true };
         }
 
@@ -65,7 +65,7 @@ export const authService = {
         email,
         displayName: email.split("@")[0].toUpperCase() + " (Admin)"
       };
-      localStorage.setItem("sgm_auth_user", JSON.stringify(user));
+      sessionStorage.setItem("sgm_auth_user", JSON.stringify(user));
       return { user, isDemo: true };
     }
   },
@@ -102,6 +102,7 @@ export const authService = {
         console.error("Firebase logout error:", err);
       }
     }
+    sessionStorage.removeItem("sgm_auth_user");
     localStorage.removeItem("sgm_auth_user");
   },
 
@@ -110,10 +111,10 @@ export const authService = {
       return auth.currentUser;
     }
     try {
-      const stored = localStorage.getItem("sgm_auth_user");
-      return stored ? JSON.parse(stored) : DEMO_USER;
+      const stored = sessionStorage.getItem("sgm_auth_user") || localStorage.getItem("sgm_auth_user");
+      return stored ? JSON.parse(stored) : null;
     } catch {
-      return DEMO_USER;
+      return null;
     }
   },
 
@@ -123,14 +124,14 @@ export const authService = {
         if (user) {
           callback(user);
         } else {
-          // Check local fallback
-          const localUser = localStorage.getItem("sgm_auth_user");
-          callback(localUser ? JSON.parse(localUser) : null);
+          // Check session fallback (null if not logged in)
+          const sessionUser = sessionStorage.getItem("sgm_auth_user");
+          callback(sessionUser ? JSON.parse(sessionUser) : null);
         }
       });
     } else {
-      const localUser = localStorage.getItem("sgm_auth_user");
-      callback(localUser ? JSON.parse(localUser) : DEMO_USER);
+      const sessionUser = sessionStorage.getItem("sgm_auth_user");
+      callback(sessionUser ? JSON.parse(sessionUser) : null);
       return () => {};
     }
   }
