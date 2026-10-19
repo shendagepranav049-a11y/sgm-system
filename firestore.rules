@@ -1,0 +1,148 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasAnyRole(roles) {
+      return isAuthenticated() && (getUserData().role in roles || request.auth.token.role in roles);
+    }
+
+    function isSuperAdmin() {
+      return hasAnyRole(['super_admin']);
+    }
+
+    function isSchoolAdmin() {
+      return hasAnyRole(['super_admin', 'school_admin']);
+    }
+
+    function isAccountant() {
+      return hasAnyRole(['super_admin', 'school_admin', 'accountant']);
+    }
+
+    function isTeacher() {
+      return hasAnyRole(['super_admin', 'school_admin', 'teacher']);
+    }
+
+    // Default: Authenticated read
+    match /{document=**} {
+      allow read: if isAuthenticated();
+    }
+
+    // Students collection
+    match /students/{studentId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isSchoolAdmin();
+    }
+
+    // Teachers collection
+    match /teachers/{teacherId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isSchoolAdmin();
+    }
+
+    // Classes, Divisions & Subjects
+    match /classes/{classId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin();
+    }
+
+    match /divisions/{divisionId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin();
+    }
+
+    match /academicYears/{yearId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin();
+    }
+
+    match /subjects/{subjectId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin();
+    }
+
+    // Fees Management - Fee Structures
+    match /feeStructures/{structureId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAccountant();
+      allow delete: if isSchoolAdmin();
+    }
+
+    // Student Fee Accounts (Monetary totals in integer paise)
+    match /studentFeeAccounts/{accountId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAccountant();
+      allow delete: if isSuperAdmin();
+    }
+
+    // Fee Payments & Receipts - Immutability Enforcement
+    match /feePayments/{paymentId} {
+      allow read: if isAuthenticated();
+      // Only authorized finance accountants can record payment
+      allow create: if isAccountant();
+      // Completed financial payments cannot be directly overwritten or deleted by client
+      allow update, delete: if isSuperAdmin();
+    }
+
+    match /feeReceipts/{receiptId} {
+      allow read: if isAuthenticated();
+      allow create: if isAccountant();
+      allow update, delete: if false; // Receipts are immutable historical legal artifacts
+    }
+
+    // Fee Audit Logs - Append only
+    match /feeAuditLogs/{logId} {
+      allow read: if isAccountant();
+      allow create: if isAuthenticated();
+      allow update, delete: if false; // Append-only audit trail
+    }
+
+    // Attendance
+    match /attendance/{attendanceId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isSchoolAdmin();
+    }
+
+    // Exams & Results
+    match /exams/{examId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isSchoolAdmin();
+    }
+
+    match /results/{resultId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isSchoolAdmin();
+    }
+
+    // Homework & Notices
+    match /homework/{hwId} {
+      allow read: if isAuthenticated();
+      allow write: if isTeacher() || isSchoolAdmin();
+    }
+
+    match /notices/{noticeId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin() || isTeacher();
+    }
+
+    // School Profile Settings
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isSchoolAdmin();
+    }
+
+    // User Accounts & Roles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isSuperAdmin() || request.auth.uid == userId;
+    }
+  }
+}
