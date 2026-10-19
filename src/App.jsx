@@ -40,6 +40,7 @@ function MainPortal() {
   const { toast } = useSchool();
   const [activeRoute, setActiveRoute] = useState("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   // Quick Action Modal States
   const [globalCollectFeeOpen, setGlobalCollectFeeOpen] = useState(false);
@@ -87,12 +88,25 @@ function MainPortal() {
 
   return (
     <div className="app-container">
+      {/* Mobile Backdrop Overlay */}
+      {mobileSidebarOpen && (
+        <div
+          className="sidebar-mobile-overlay no-print"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar with Accordion Submenus */}
       <Sidebar
         activeRoute={activeRoute}
-        onNavigate={(route) => setActiveRoute(route)}
+        onNavigate={(route) => {
+          setActiveRoute(route);
+          setMobileSidebarOpen(false);
+        }}
         collapsed={sidebarCollapsed}
         setCollapsed={setSidebarCollapsed}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
       {/* Main Content Wrapper */}
@@ -100,6 +114,7 @@ function MainPortal() {
         <Header
           activeRoute={activeRoute}
           onOpenCollectFee={() => handleOpenGlobalFee("")}
+          onToggleMobileMenu={() => setMobileSidebarOpen((prev) => !prev)}
         />
 
         <main className="content-area">

@@ -22,7 +22,8 @@ import {
   School,
   Clock,
   Layers,
-  ArrowRight
+  ArrowRight,
+  X
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -139,7 +140,9 @@ export default function Sidebar({
   activeRoute,
   onNavigate,
   collapsed,
-  setCollapsed
+  setCollapsed,
+  mobileOpen,
+  onCloseMobile
 }) {
   const { currentUser, logout } = useAuth();
   // Expanded menus tracking
@@ -159,8 +162,15 @@ export default function Sidebar({
     }));
   };
 
+  const handleItemClick = (route) => {
+    onNavigate(route);
+    if (onCloseMobile) {
+      onCloseMobile();
+    }
+  };
+
   return (
-    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={`sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       {/* Brand Header */}
       <div className="sidebar-header">
         <div className="brand-wrapper">
@@ -174,12 +184,24 @@ export default function Sidebar({
             </div>
           )}
         </div>
+        
+        {/* Desktop Collapse Toggle */}
         <button
-          className="collapse-btn no-print"
+          className="collapse-btn desktop-only no-print"
           onClick={() => setCollapsed(!collapsed)}
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+        </button>
+
+        {/* Mobile Close Button */}
+        <button
+          type="button"
+          className="mobile-close-btn no-print"
+          onClick={onCloseMobile}
+          title="Close Navigation Menu"
+        >
+          <X size={20} />
         </button>
       </div>
 
@@ -199,7 +221,7 @@ export default function Sidebar({
               <button
                 key={mod.id}
                 className={`nav-item ${isDirectActive ? "active" : ""}`}
-                onClick={() => onNavigate(mod.route)}
+                onClick={() => handleItemClick(mod.route)}
                 title={collapsed ? mod.label : undefined}
               >
                 <Icon size={19} className="nav-icon" />
@@ -267,7 +289,7 @@ export default function Sidebar({
                     return (
                       <button
                         key={sub.id}
-                        onClick={() => onNavigate(sub.route)}
+                        onClick={() => handleItemClick(sub.route)}
                         style={{
                           background: isSubActive ? "#4f46e5" : "transparent",
                           color: isSubActive ? "#ffffff" : "#94a3b8",

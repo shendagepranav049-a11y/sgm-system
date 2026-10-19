@@ -1,8 +1,8 @@
 import React from "react";
-import { PlusCircle, RefreshCw, Sparkles } from "lucide-react";
+import { PlusCircle, RefreshCw, Sparkles, Menu } from "lucide-react";
 import { useSchool } from "../../context/SchoolContext";
 
-export default function Header({ activeRoute, onOpenCollectFee }) {
+export default function Header({ activeRoute, onOpenCollectFee, onToggleMobileMenu }) {
   const { firebaseActive, loadAllData, seedFirestore, loading } = useSchool();
 
   const getPageMeta = (route) => {
@@ -76,6 +76,17 @@ export default function Header({ activeRoute, onOpenCollectFee }) {
   return (
     <header className="top-header no-print">
       <div className="header-left">
+        {/* Mobile Hamburger Toggle */}
+        <button
+          type="button"
+          className="mobile-menu-btn no-print"
+          onClick={onToggleMobileMenu}
+          title="Open Navigation Menu"
+          aria-label="Open Navigation Menu"
+        >
+          <Menu size={22} />
+        </button>
+
         <div className="page-title-box">
           <h1 className="page-title">{meta.title}</h1>
           <span className="page-subtitle">{meta.subtitle}</span>

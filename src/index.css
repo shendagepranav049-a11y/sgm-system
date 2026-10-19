@@ -1342,32 +1342,304 @@ button {
   margin-right: 4px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .sgm-top-floating-bar {
-    flex-direction: column;
+/* Mobile-Specific Buttons */
+.mobile-menu-btn {
+  display: none;
+}
+
+.mobile-close-btn {
+  display: none;
+}
+
+/* Dashboard Grid Rows */
+.dashboard-grid-row {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.dashboard-row-charts {
+  grid-template-columns: 1.1fr 1.9fr;
+}
+
+.dashboard-row-tables {
+  grid-template-columns: 1.8fr 1.2fr;
+}
+
+/* ==========================================================================
+   COMPREHENSIVE RESPONSIVE STYLES (TABLET & MOBILE)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  /* Sidebar Off-Canvas Drawer on Mobile */
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 290px !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar-mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-close-btn {
+    display: flex !important;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
   }
 
-  .sgm-top-accreditation {
-    display: none;
+  .mobile-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
 
-  .sgm-bottom-floating-bar {
-    flex-direction: column;
-    text-align: center;
+  /* Header on Mobile */
+  .mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-btn:hover {
+    background: var(--bg-hover);
+    color: var(--primary);
+  }
+
+  .top-header {
+    padding: 0.75rem 1rem !important;
+    height: auto !important;
+    min-height: 60px;
+    flex-wrap: wrap;
     gap: 0.65rem;
   }
 
-  .sgm-bottom-stats-pills {
-    justify-content: center;
+  .header-left {
+    gap: 0.75rem;
   }
 
-  .sgm-floating-login-card {
-    padding: 1.75rem 1.5rem;
-    margin: 1rem auto;
+  .page-title {
+    font-size: 1.15rem !important;
+  }
+
+  .page-subtitle {
+    display: none !important;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    gap: 0.5rem;
+    scrollbar-width: none;
+  }
+
+  .header-right::-webkit-scrollbar {
+    display: none;
+  }
+
+  .content-area {
+    padding: 1rem 1rem 3rem !important;
+  }
+
+  /* Dashboard Charts & Tables Stack on Mobile */
+  .dashboard-row-charts,
+  .dashboard-row-tables {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
   }
 }
+
+/* Phones & Compact Mobile Screens */
+@media (max-width: 640px) {
+  /* 2 Compact KPI Columns on Phones */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .metric-card {
+    padding: 0.85rem !important;
+    border-radius: 14px !important;
+  }
+
+  .metric-value {
+    font-size: 1.35rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .metric-title {
+    font-size: 0.72rem !important;
+  }
+
+  .metric-icon-box {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .metric-footer {
+    display: none !important;
+  }
+
+  /* Modals on Mobile */
+  .modal-overlay {
+    padding: 0.5rem !important;
+    align-items: flex-end !important;
+  }
+
+  .modal-dialog {
+    max-width: 100% !important;
+    border-radius: 22px 22px 0 0 !important;
+    max-height: 94vh !important;
+  }
+}
+
+/* ==========================================================================
+   LOGIN PAGE FULLSCREEN MOBILE RESPONSIVE OPTIMIZATIONS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .sgm-fullscreen-page {
+    padding: 0.75rem 0.75rem 1rem !important;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .sgm-top-floating-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .sgm-brand-badge-top {
+    padding: 0.35rem 0.85rem 0.35rem 0.5rem !important;
+  }
+
+  .sgm-brand-badge-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .sgm-brand-badge-name {
+    font-size: 0.78rem !important;
+  }
+
+  .sgm-brand-badge-sub {
+    font-size: 0.64rem !important;
+  }
+
+  /* Horizontal Scrollable Google Tabs on Mobile */
+  .google-tabs-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important;
+    padding: 4px 6px !important;
+    scrollbar-width: none !important;
+  }
+
+  .google-tabs-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .google-tab-item {
+    padding: 0.45rem 0.95rem !important;
+    font-size: 0.78rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sgm-top-accreditation {
+    display: none !important;
+  }
+
+  /* Floating Login Card on Mobile */
+  .sgm-floating-login-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1.15rem !important;
+    margin: 0.5rem auto !important;
+    border-radius: 20px !important;
+  }
+
+  .sgm-login-heading {
+    font-size: 1.35rem !important;
+  }
+
+  .sgm-login-subheading {
+    font-size: 0.78rem !important;
+  }
+
+  .autofill-credential-chip {
+    padding: 0.6rem 0.8rem !important;
+  }
+
+  /* Bottom Floating Bar on Mobile */
+  .sgm-bottom-floating-bar {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .sgm-bottom-view-info {
+    font-size: 0.74rem !important;
+    padding: 0.4rem 0.85rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .sgm-bottom-stats-pills {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+  }
+
+  .sgm-bottom-stat-chip {
+    font-size: 0.72rem !important;
+    padding: 0.35rem 0.75rem !important;
+  }
+}
+
 
 

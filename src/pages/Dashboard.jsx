@@ -143,7 +143,7 @@ export default function Dashboard({ onNavigate, onOpenCollectFee }) {
       </div>
 
       {/* Main Charts & Analytics Row */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1.9fr", gap: "1.5rem", marginBottom: "1.75rem" }}>
+      <div className="dashboard-grid-row dashboard-row-charts">
         {/* Realization Donut Gauge */}
         <div className="card">
           <div className="card-header">
@@ -177,7 +177,7 @@ export default function Dashboard({ onNavigate, onOpenCollectFee }) {
       </div>
 
       {/* Secondary Row: Recent Payments & Class Statistics */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.8fr 1.2fr", gap: "1.5rem", marginBottom: "1.75rem" }}>
+      <div className="dashboard-grid-row dashboard-row-tables">
         {/* Recent Fee Payments */}
         <div className="card">
           <div className="card-header">
