@@ -986,3 +986,377 @@ button {
     margin: 0 auto !important;
   }
 }
+
+/* ==========================================================================
+   SGM ACADEMY & COLLEGE MODERN DUAL-PANEL SHOWCASE LOGIN STYLES
+   ========================================================================== */
+
+.sgm-login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 10% 20%, #0f172a 0%, #1e1b4b 60%, #020617 100%);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background animated gradient orb */
+.sgm-login-wrapper::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.sgm-login-wrapper::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+  bottom: -100px;
+  right: -100px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.sgm-login-card-container {
+  width: 100%;
+  max-width: 1140px;
+  min-height: 660px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Left Showcase Panel */
+.sgm-showcase-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.25rem;
+  overflow: hidden;
+  background: #020617;
+}
+
+.sgm-showcase-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 8s ease-out;
+  opacity: 0;
+  transform: scale(1);
+}
+
+.sgm-showcase-bg-img.active {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.sgm-showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.55) 0%, rgba(2, 6, 23, 0.35) 40%, rgba(2, 6, 23, 0.88) 100%);
+  z-index: 1;
+}
+
+.sgm-showcase-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sgm-showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Google-Style Animated Tabs */
+.google-tabs-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  gap: 4px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.google-tab-item {
+  position: relative;
+  padding: 0.5rem 1.1rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.google-tab-item:hover {
+  color: #ffffff;
+}
+
+.google-tab-item.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+}
+
+.google-tab-item.active svg {
+  color: #4f46e5;
+}
+
+/* Bottom Showcase Content */
+.sgm-showcase-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sgm-showcase-title-box {
+  color: #ffffff;
+}
+
+.sgm-showcase-title {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.sgm-showcase-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.sgm-showcase-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+}
+
+.sgm-stat-item {
+  text-align: center;
+}
+
+.sgm-stat-val {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sgm-stat-lbl {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+}
+
+/* Right Login Form Panel */
+.sgm-login-form-panel {
+  background: #ffffff;
+  padding: 2.75rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.sgm-login-brand-header {
+  margin-bottom: 1.5rem;
+}
+
+.sgm-login-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.sgm-login-heading {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+}
+
+.sgm-login-subheading {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Login Mode Google Tab Switcher */
+.login-mode-tabs {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  gap: 4px;
+}
+
+.login-mode-tab {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.login-mode-tab.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-weight: 700;
+}
+
+.login-mode-tab.active svg {
+  color: #4f46e5;
+}
+
+/* Google SSO Button */
+.btn-google-sso {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.btn-google-sso:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Auto-fill Chip */
+.autofill-credential-chip {
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.autofill-credential-chip:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sgm-login-card-container {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    border-radius: 22px;
+  }
+
+  .sgm-showcase-panel {
+    min-height: 300px;
+    padding: 1.5rem;
+  }
+
+  .sgm-showcase-title {
+    font-size: 1.35rem;
+  }
+
+  .sgm-showcase-stats-row {
+    display: none;
+  }
+
+  .sgm-login-form-panel {
+    padding: 2rem 1.5rem;
+  }
+}
+
