@@ -174,6 +174,7 @@ function MainPortal() {
           {activeRoute === "fees-structure" && <FeeStructurePage />}
           {activeRoute === "fees-collect" && (
             <CollectFeesPage
+              initialTab="collect"
               preselectedStudentId={selectedStudentForFee}
               onCollectComplete={handlePaymentCompleted}
             />
@@ -184,13 +185,27 @@ function MainPortal() {
             />
           )}
           {activeRoute === "fees-pending" && (
-            <PendingFeesPage
-              onCollectFeeForStudent={(id) => handleOpenGlobalFee(id)}
+            <CollectFeesPage
+              initialTab="pending"
+              preselectedStudentId={selectedStudentForFee}
+              onCollectComplete={handlePaymentCompleted}
             />
           )}
-          {activeRoute === "fees-history" && <PaymentHistoryPage />}
+          {activeRoute === "fees-history" && (
+            <CollectFeesPage
+              initialTab="history"
+              preselectedStudentId={selectedStudentForFee}
+              onCollectComplete={handlePaymentCompleted}
+            />
+          )}
           {activeRoute === "fees-receipts" && <FeeReceiptsPage />}
-          {activeRoute === "fees-reports" && <FeeReportsPage />}
+          {activeRoute === "fees-reports" && (
+            <CollectFeesPage
+              initialTab="collect"
+              preselectedStudentId={selectedStudentForFee}
+              onCollectComplete={handlePaymentCompleted}
+            />
+          )}
 
           {/* 8. Homework */}
           {activeRoute === "homework" && <HomeworkPage />}

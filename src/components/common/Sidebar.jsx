@@ -98,10 +98,7 @@ export const SIDEBAR_MODULES = [
       { id: "fees-structure", label: "Fee Structure", route: "fees-structure" },
       { id: "fees-collect", label: "Collect Fees", route: "fees-collect" },
       { id: "fees-students", label: "Student Fee Details", route: "fees-students" },
-      { id: "fees-pending", label: "Pending Fees", route: "fees-pending" },
-      { id: "fees-history", label: "Payment History", route: "fees-history" },
-      { id: "fees-receipts", label: "Fee Receipts", route: "fees-receipts" },
-      { id: "fees-reports", label: "Fee Reports", route: "fees-reports" }
+      { id: "fees-receipts", label: "Fee Receipts", route: "fees-receipts" }
     ]
   },
   {
