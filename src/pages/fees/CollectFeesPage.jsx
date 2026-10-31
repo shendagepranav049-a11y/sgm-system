@@ -531,7 +531,12 @@ export default function CollectFeesPage({
                   gap: "0.5rem"
                 }}
               >
-                {filteredStudents.map((s) => {
+                {filteredStudents.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: "2.5rem 1rem", color: "#94a3b8" }}>
+                    कोणताही विद्यार्थी उपलब्ध नाही. आधी '+ Add Student' मधून नवीन विद्यार्थी जोडा.
+                  </div>
+                ) : (
+                  filteredStudents.map((s) => {
                   const acct = studentFeeAccounts.find((a) => a.studentId === s.id);
                   const isSelected = s.id === selectedStudentId;
                   const isPending = acct && Number(acct.remainingBalancePaise || 0) > 0;
@@ -579,7 +584,8 @@ export default function CollectFeesPage({
                       </div>
                     </div>
                   );
-                })}
+                })
+              )}
               </div>
             </div>
 

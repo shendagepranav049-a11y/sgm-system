@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Plus, Layers, DoorOpen, Users } from "lucide-react";
+import { Plus, Layers, DoorOpen, Users, Trash2 } from "lucide-react";
 import { useSchool } from "../../context/SchoolContext";
 import Modal from "../../components/common/Modal";
 
 export default function DivisionsPage() {
-  const { divisions, classes, teachers } = useSchool();
+  const { divisions, classes, teachers, addDivision, deleteDivision } = useSchool();
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     className: classes[0]?.name || "Grade 10",
@@ -12,6 +12,18 @@ export default function DivisionsPage() {
     classTeacher: teachers[0]?.name || "",
     room: "Room 101"
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addDivision(formData);
+    setModalOpen(false);
+    setFormData({
+      className: classes[0]?.name || "Grade 10",
+      division: "",
+      classTeacher: teachers[0]?.name || "",
+      room: "Room 101"
+    });
+  };
 
   return (
     <div>
@@ -36,27 +48,46 @@ export default function DivisionsPage() {
               <th>Class Teacher</th>
               <th>Classroom Location</th>
               <th>Status</th>
+              <th style={{ textAlign: "right" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {divisions.map((div) => (
-              <tr key={div.id}>
-                <td>
-                  <strong>{div.className}</strong> - Division {div.division}
-                </td>
-                <td>{div.classTeacher}</td>
-                <td>{div.room}</td>
-                <td>
-                  <span className="badge badge-paid">Active</span>
+            {divisions.length === 0 ? (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center", padding: "2rem", color: "#94a3b8" }}>
+                  कोणतीही तुकडी जोडलेली नाही. वर '+ Add Division' वर क्लिक करा.
                 </td>
               </tr>
-            ))}
+            ) : (
+              divisions.map((div) => (
+                <tr key={div.id}>
+                  <td>
+                    <strong>{div.className}</strong> - Division {div.division}
+                  </td>
+                  <td>{div.classTeacher || "Not Assigned"}</td>
+                  <td>{div.room || "N/A"}</td>
+                  <td>
+                    <span className="badge badge-paid">Active</span>
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    <button
+                      className="btn btn-sm"
+                      style={{ color: "#ef4444", background: "transparent" }}
+                      onClick={() => deleteDivision(div.id)}
+                      title="Delete Division"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Create New Division">
-        <form onSubmit={(e) => { e.preventDefault(); setModalOpen(false); }}>
+        <form onSubmit={handleSubmit}>
           <div className="form-grid-2">
             <div className="form-group">
               <label className="form-label">Select Class *</label>
@@ -92,9 +123,10 @@ export default function DivisionsPage() {
               value={formData.classTeacher}
               onChange={(e) => setFormData({ ...formData, classTeacher: e.target.value })}
             >
+              <option value="">-- Select Teacher --</option>
               {teachers.map((t) => (
                 <option key={t.id} value={t.name}>
-                  {t.name} ({t.subject})
+                  {t.name} ({t.subject || "Faculty"})
                 </option>
               ))}
             </select>
@@ -107,6 +139,7 @@ export default function DivisionsPage() {
               className="form-input"
               value={formData.room}
               onChange={(e) => setFormData({ ...formData, room: e.target.value })}
+              placeholder="e.g. Room 204"
             />
           </div>
 

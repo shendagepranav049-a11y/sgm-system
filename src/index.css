@@ -130,7 +130,6 @@ button {
   min-height: 100vh;
   width: 100%;
   background: var(--bg-app);
-  overflow-x: hidden;
 }
 
 .main-wrapper {
@@ -138,6 +137,8 @@ button {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  margin-left: 280px;
+  min-height: 100vh;
   transition: margin-left var(--transition-normal);
 }
 
@@ -149,7 +150,7 @@ button {
   margin: 0 auto;
 }
 
-/* Sidebar Styling */
+/* Sidebar Fixed Desktop Layout */
 .sidebar {
   width: 280px;
   background-color: var(--bg-sidebar);
@@ -158,15 +159,22 @@ button {
   flex-direction: column;
   flex-shrink: 0;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all var(--transition-normal);
+  transition: width var(--transition-normal);
   z-index: 50;
   height: 100vh;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  bottom: 0;
 }
 
 .sidebar.collapsed {
   width: 82px;
+}
+
+.sidebar.collapsed ~ .main-wrapper,
+.app-container:has(.sidebar.collapsed) .main-wrapper {
+  margin-left: 82px;
 }
 
 .sidebar-header {
@@ -1399,6 +1407,10 @@ button {
     animation: fadeIn 0.2s ease;
   }
 
+  .main-wrapper {
+    margin-left: 0 !important;
+  }
+
   .desktop-only {
     display: none !important;
   }
@@ -1641,5 +1653,125 @@ button {
   }
 }
 
+/* ==========================================================================
+   ADMIN DASHBOARD MODERN & UNIQUE ANIMATIONS
+   ========================================================================== */
 
+@keyframes dashboardCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes auraGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes liveDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+.dashboard-hero-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 80%, #3730a3 100%);
+  background-size: 200% 200%;
+  animation: auraGlow 12s ease infinite, dashboardCardEntrance 0.5s ease-out;
+  border-radius: 18px;
+  padding: 1.75rem 2rem;
+  color: #ffffff;
+  margin-bottom: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-hero-banner::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dashboard-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.35rem 0.85rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.dashboard-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: liveDotPulse 1.8s infinite ease-in-out;
+}
+
+.metric-card {
+  animation: dashboardCardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 28px -5px rgba(15, 23, 42, 0.12), 0 6px 10px -3px rgba(15, 23, 42, 0.05) !important;
+  border-color: #cbd5e1 !important;
+}
+
+.dashboard-quick-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dashboard-quick-action-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

@@ -1,9 +1,9 @@
 import React from "react";
-import { PlusCircle, RefreshCw, Sparkles, Menu } from "lucide-react";
+import { PlusCircle, RefreshCw, Sparkles, Menu, Trash2 } from "lucide-react";
 import { useSchool } from "../../context/SchoolContext";
 
 export default function Header({ activeRoute, onOpenCollectFee, onToggleMobileMenu }) {
-  const { firebaseActive, loadAllData, seedFirestore, loading } = useSchool();
+  const { firebaseActive, loadAllData, clearAllDummyData, loading } = useSchool();
 
   const getPageMeta = (route) => {
     switch (route) {
@@ -118,14 +118,14 @@ export default function Header({ activeRoute, onOpenCollectFee, onToggleMobileMe
           <span>Refresh</span>
         </button>
 
-        {/* Quick Action: Seed Cloud Data */}
+        {/* Quick Action: Clear Dummy Data */}
         <button
           className="btn btn-secondary btn-sm"
-          onClick={seedFirestore}
-          title="Seed realistic school data to Firestore / Local DB"
+          onClick={clearAllDummyData}
+          title="सर्व जुना डमी डेटा हटवा आणि सिस्टिम स्वच्छ करा (Clear all dummy data)"
         >
-          <Sparkles size={14} style={{ color: "#8b5cf6" }} />
-          <span>Seed Data</span>
+          <Trash2 size={14} style={{ color: "#ef4444" }} />
+          <span style={{ color: "#b91c1c" }}>Clear Dummy</span>
         </button>
 
         {/* Quick Action: Collect Fee */}
